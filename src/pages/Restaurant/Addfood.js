@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Addfood = () => {
   return (
     <>
-      <div className="flex ">
+      <div className="flex">
         <div className="w-2/12 h-[90vh] bg-[#1c3155]">
           <div className="flex">
             <ul className="p-5 my-3">
