@@ -70,7 +70,9 @@ import { useAuth } from "../security/AuthContext";
 
 import React from "react";
 
-const Login = () => {
+const Register = () => {
+  // const [role, setRole] = useState("customer");
+
   const [email, setEmail] = useState("");
 
   const [password, setPassword] = useState("");
@@ -89,24 +91,24 @@ const Login = () => {
     setPassword(event.target.value);
   }
 
-  async function handleSubmit() {
+  async function handleSubmit1(role) {
     // e.preventDefault();
-    console.log(email, password);
-    if (await authContext.login(email, password)) {
+    console.log(email, password,role);
+    if (await authContext.register(email, password,role)) {
       console.log("ok exec");
-      navigate(`/`);
+      navigate(`/login`);
     } else {
       setShowErrorMessage(true);
     }
   }
   return (
-    <div>
-      <section className="bg-gray-50 dark:bg-gray-900">
+    <div className="flex">
+      <section className="bg-gray-50 dark:bg-gray-900 w-1/2">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                Login
+                Customer Sign up
               </h1>
 
               <div>
@@ -148,10 +150,68 @@ const Login = () => {
 
               <button
                 type="button"
-                onClick={handleSubmit}
+                value="customer"
+                onClick={() => handleSubmit1("customer")}
                 className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Login
+                Signup
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="bg-gray-50 dark:bg-gray-900 w-1/2">
+        <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+          <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                Restaurant Sign up
+              </h1>
+
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Your email
+                </label>
+                <input
+                  value={email}
+                  onChange={handleEmailChange}
+                  type="email"
+                  name="email"
+                  id="email"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="name@company.com"
+                  required=""
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Password
+                </label>
+                <input
+                  value={password}
+                  onChange={handlePasswordChange}
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="••••••••"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  required=""
+                />
+              </div>
+
+              <button
+                type="button"
+                value="restaurant"
+                onClick={() => handleSubmit1("restaurant")}
+                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              >
+                Signup
               </button>
             </div>
           </div>
@@ -161,6 +221,6 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
 
 // export default LoginComponent;
