@@ -1,12 +1,12 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../security/AuthContext";
 
-function RestaurantAuthenticated({ children }) {
+function AdminAuthenticated({ children }) {
   const authContext = useAuth();
-  if (authContext.isAuthenticated && authContext.role1 === "RESTAURANT")
+  if (authContext.isAuthenticated && authContext.role1 === "ADMIN")
     return children;
 
   return <Navigate to="/unauthorized" />;
 }
 
-export default RestaurantAuthenticated;
+export default AdminAuthenticated;

@@ -6,18 +6,18 @@ import {
   registerUser,
 } from "../api/AuthenticationApiService";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 //1: Create a Context
 export const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
 
-//2: Share the created context with other components
+
 export default function AuthProvider({ children }) {
-  //3: Put some state in the context
+
   const storedToken = localStorage.getItem("authToken");
   const storedRole = localStorage.getItem("role");
-  // Initialize state with the stored token or null
   const [isAuthenticated, setAuthenticated] = useState(!!storedToken);
   const [username, setUsername] = useState(null);
   const [token, setToken] = useState(storedToken);
@@ -81,7 +81,7 @@ export default function AuthProvider({ children }) {
         password
       );
 
-      // return true;
+      
 
       if (response.status == 200) {
         const jwtToken = "Bearer " + response.data.jwt;
@@ -115,6 +115,7 @@ export default function AuthProvider({ children }) {
   async function register(email, password, role) {
     try {
       if (role === "customer") {
+        console.log("in register ", role);
         const response = await registerUser(email, password);
 
         if (response.status == 201) {
@@ -125,7 +126,7 @@ export default function AuthProvider({ children }) {
         }
       } else {
         const response = await registerRestaurant(email, password);
-
+        console.log("in register ", role);
         if (response.status == 201) {
           console.log(response.status);
           return true;
@@ -144,6 +145,7 @@ export default function AuthProvider({ children }) {
     setUsername(null);
     localStorage.removeItem("authToken");
     localStorage.removeItem("role");
+    // <Navigate to = "/"/>
   }
 
   return (
